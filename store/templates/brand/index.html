@@ -1,0 +1,75 @@
+{% extends "main.html" %}
+
+{% load static %}
+
+{% block title %}
+  Shop
+{% endblock title %}
+
+{% block content %}
+
+
+<!-- start product -->
+<section class="product">
+    <div class="container product__container">
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'product.index' %}">Shop</a></li>
+                <li>{{ brand.name }}</li>
+            </ul>
+        </div>
+
+        <div class="products">
+
+            {% for product in products %}
+            <div class="item">
+                <div class="image">
+                    <a href="#">
+                        <img src="{{ product.image.url }}" alt="">
+                    </a>
+                </div>
+
+                <div class="text-area">
+                    <a class="product-title mb-10" href="{% url 'product.show' product.slug %}">{{ product.name|truncatechars:30 }}</a>
+
+                    <p class="price">TK {{ product.price }}৳ <span>TK {{product.actual_price }}৳</span></p>
+                </div>
+
+                <a href="#" class="btn product-btn"><i class="fa-solid fa-cart-plus"></i> Add to Cart</a>
+            </div>
+            {% endfor %}
+
+
+
+        </div>
+
+        <div class="show-more">
+            {% if products.has_other_pages %}
+                <ul class="pagination">
+                    {% if products.has_previous %}
+                    <li><a href="?page={{ products.previous_page_number }}"><i class="fa-solid fa-chevron-left"></i></a></li>
+                    {% else %}
+                    <li class="disabled"><i class="fa-solid fa-chevron-left"></i></li>
+                    {% endif %}
+                    {% for i in products.paginator.page_range %}
+                    {% if products.number == i %}
+                    <li class="active"><span>{{ i }}</span></li>
+                    {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if products.has_next %}
+                    <li><a href="?page={{ products.next_page_number }}"><i class="fa-solid fa-chevron-right"></i></a></li>
+                    {% else %}
+                    <li class="disabled"><i class="fa-solid fa-chevron-right"></i></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- End product -->
+
+{% endblock content %}

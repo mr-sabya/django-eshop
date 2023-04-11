@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+
+{% load static %}
+
+{% block title %}
+Category  
+{% endblock title %}
+
+{% block content %}
+
+
+
+<!-- start category -->
+<section class="category">
+    <div class="container category__container">
+        <div class="heading">
+            <h2>Categories</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, impedit.</p>
+        </div>
+        <div class="categories">
+            {% for category in categories %}
+            <div class="item">
+                <img src="{{ category.image.url }}" alt="Laptop">
+                <a href="{% url 'category.show' category.slug %}">{{ category.name }}</a>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+<!-- end category -->
+
+
+
+
+{% endblock content %}

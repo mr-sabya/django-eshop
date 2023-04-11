@@ -1,0 +1,22 @@
+<!-- start menu -->
+<div class="menu">
+    <div class="container menu__container">
+        <div class="logo">
+            <a href="#"><i class="fa-solid fa-laptop"></i>shop</a>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li class="menu-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                <li class="menu-item"><a class="nav-link" href="{% url 'category.index' %}">Category</a></li>
+                <li class="menu-item"><a class="nav-link" href="{% url 'product.index' %}">Shop</a></li>
+                <li class="menu-item"><a class="nav-link" href="#">About Us</a></li>
+                <li class="menu-item"><a class="nav-link" href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <div class="menu-btn">
+            <a href="#" class="login">Login</a>
+            <a href="javascript:void(0)" class="login" id="menu_btn"><i class="fa-solid fa-bars"></i></a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+{% extends "main.html" %}
+
+{% load static %}
+
+{% block title %}
+{{ product.name }}
+{% endblock title %}
+
+{% block content %}
+
+
+<!-- start product -->
+<section class="product">
+    <div class="container product__container">
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'product.index' %}">Shop</a></li>
+                <li><a href="{% url 'category.show' product.category.slug %}">{{ product.category.name }}</a></li>
+                <li><a href="{% url 'brand.show' product.brand.slug %}">{{ product.brand.name }}</a></li>
+                <li>{{ product.name }}</li>
+            </ul>
+        </div>
+
+        <div class="single-product">
+            <div class="image">
+                <img src="{{ product.image.url }}" alt="">
+            </div>
+
+            <div class="details">
+                <h3><a href="{% url 'product.show' product.slug %}">{{ product.name }}</a></h3>
+                <ul class="price">
+                    <li>Price: <span>{{ product.price }}</span></li>
+                    <li>Actual Price: <span>{{ product.actual_price }}</span></li>
+                    <li>Status: {% if product.is_stock is True %}
+                        <span>In Stock</span>
+                        {% else %}
+                        <span>Out of Stock</span>
+                        {% endif %}
+                    </li>
+                    <li>Product Code: <span>{{ product.product_code }}</span></li>
+                    <li>Brand: <span>{{ product.brand.name }}</span></li>
+                </ul>
+                <div class="features">
+                    <h3>Key Features</h3>
+                    {{ product.key_features|safe }}
+                </div>
+
+                <div class="buy">
+                    <form action="">
+                        <div class="form-area">
+                            <div class="quantity">
+                                <button class="minus qtn-btn btn" id="minus_btn"><i
+                                        class="fa-solid fa-minus"></i></button>
+                                <input type="text" name="" id="quantity" value="1" readonly>
+                                <button class="minus qtn-btn btn" id="plus_btn"><i
+                                        class="fa-solid fa-plus"></i></button>
+                            </div>
+                            <button type="submit" class="btn buy-btn">Buy Now</button>
+                            <a href="#" class="btn buy-btn">Add to Cart</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="product_details">
+    <div class="container details__container">
+        <div class="content-area">
+            <div class="card">
+                <div class="specification">
+                    <h2>Specification</h2>
+                    {{ product.specification|safe }}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="specification">
+                    <h3 class="title">Description</h3>
+                    <h2>{{ product.name }}</h2>
+                    <div class="description">
+                        {{ product.description|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="card">
+                <div class="title">
+                    <h4>Related Products</h4>
+                </div>
+
+                <div class="products">
+                    {% for recent_product in products %}
+                    <div class="product">
+                        <div class="image">
+                            <img src="{{ recent_product.image.url }}" alt="">
+                        </div>
+                        <div class="text">
+                            <a href="{% url 'product.show' recent_product.slug %}">{{ recent_product.name }}</a>
+                            <p class="price"> ৳{{ recent_product.price }} <span>৳{{ recent_product.actual_price }}</span></p>
+                            <a href="#" class="sidebar-btn">Buy Now</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- End product -->
+
+{% endblock content %}
+
+
+{% block script %}
+
+<script>
+    $('#minus_btn').click(function (e) {
+        e.preventDefault();
+        let value = $('#quantity').val();
+        if (value > 1) {
+            let new_value = Number(value) - 1;
+            $('#quantity').val(new_value);
+        }
+
+    });
+
+
+    $('#plus_btn').click(function (e) {
+        e.preventDefault();
+        let value = $('#quantity').val();
+        let new_value = Number(value) + 1;
+        $('#quantity').val(new_value);
+    });
+</script>
+
+{% endblock script %}

@@ -1,0 +1,91 @@
+{% extends "main.html" %}
+
+{% load static %}
+
+{% block title %}
+Home  
+{% endblock title %}
+
+{% block content %}
+
+<!-- start banner -->
+<div class="banner">
+    <div class="container banner__container">
+        <div class="left__side-box">
+
+            <h3 class="mb-10">Build Your Gaming Pc</h3>
+            <h1 class="mb-15">Welcome to Biggest PC World</h1>
+            <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, nisi explicabo
+                exercitationem veniam ullam quia atque quibusdam dicta illo excepturi!</p>
+            <a href="" class="btn btn-lg">Build Now</a>
+        </div>
+        <div class="right__side-box">
+            <img src="{% static 'image/pc.png' %}" alt="banner-image">
+        </div>
+    </div>
+</div>
+<!-- end banner -->
+
+<!-- start category -->
+<section class="category">
+    <div class="container category__container">
+        <div class="heading">
+            <h2>Categories</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, impedit.</p>
+        </div>
+        <div class="categories">
+
+            {% for category in categories %}
+            <div class="item">
+                <img src="{{ category.image.url }}" alt="Laptop">
+                <a href="{% url 'category.show' category.slug %}">{{ category.name }}</a>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+<!-- end category -->
+
+
+<!-- start product -->
+<section class="product">
+    <div class="container product__container">
+        <div class="heading">
+            <h2>Products</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, impedit.</p>
+        </div>
+
+        <div class="products">
+
+            {% for product in products %}
+            <div class="item">
+                <div class="image">
+                    <a href="#">
+                        <img src="{% static 'image/a320m-a-pro-500x500.jpg' %}" alt="">
+                    </a>
+                </div>
+
+                <div class="text-area">
+                    <a class="product-title mb-10" href="{% url 'product.show' product.slug %}">{{ product.name|truncatechars:30 }}</a>
+
+                    <p class="price">TK {{ product.price }}৳ <span>TK {{product.actual_price }}৳</span></p>
+                </div>
+
+                <a href="#" class="btn product-btn"><i class="fa-solid fa-cart-plus"></i> Add to Cart</a>
+            </div>
+            {% endfor %}
+
+
+
+        </div>
+
+        <div class="show-more">
+            <a href="#" class="btn show-all">Show More</a>
+        </div>
+    </div>
+</section>
+
+<!-- End product -->
+
+{% endblock content %}
